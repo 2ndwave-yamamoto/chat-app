@@ -24,11 +24,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="ja">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-white`}
       >
-        {children}
+        <div className="flex flex-col h-screen">
+          <header className="h-16 bg-black text-white">
+            <div className="container mx-auto flex items-center justify-center h-full">
+              <h1 className="text-lg font-bold">Gemini APIを利用したチャットアプリ</h1>
+            </div>
+          </header>
+          <main className="flex-grow overflow-hidden">
+            {children}
+          </main>
+        </div>
       </body>
     </html>
   );
