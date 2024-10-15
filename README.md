@@ -4,7 +4,7 @@
 1. Next.jsのインストール
 
 ```
-npx create-next-app@latest chat-app --ts --tailwind --eslint --app --no-src-dir --no-import-alias
+npx create-next-app@latest chat-app --ts --tailwind --eslint --app --no-src-dir --import-alias "@/*"
 ```
 
 2. 確認
