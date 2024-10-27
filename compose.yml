@@ -1,0 +1,13 @@
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./docker/node/Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - .:/src
+      - node_modules:/src/node_modules
+
+volumes:
+  node_modules:
