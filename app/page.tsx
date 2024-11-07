@@ -1,8 +1,36 @@
 'use client';
 import { useChat } from 'ai/react';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import Image from 'next/image';
 import { Paperclip, Send, X } from 'lucide-react';
+import mermaid from 'mermaid';
+
+const Mermaid = ({ src }: { src: string }) => {
+  const elementId = useRef(`mermaid-${Math.random().toString(36).substr(2, 9)}`);
+
+  useEffect(() => {
+    mermaid.initialize({
+      startOnLoad: true,
+      theme: 'default',
+      securityLevel: 'loose',
+    });
+
+    // 既存の内容をクリアして再レンダリング
+    const element = document.getElementById(elementId.current);
+    if (element) {
+      element.innerHTML = src;
+      mermaid.run({
+        nodes: [element]
+      });
+    }
+  }, [src]);
+
+  return (
+    <div id={elementId.current} className="mermaid">
+      {src}
+    </div>
+  );
+};
 
 export default function Chat() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
@@ -29,6 +57,34 @@ export default function Chat() {
     }
   };
 
+  const renderMessage = (content: string) => {
+    const mermaidRegex = /```mermaid\n([\s\S]*?)```/g;
+    const parts = [];
+    let lastIndex = 0;
+    let match;
+
+    while ((match = mermaidRegex.exec(content)) !== null) {
+      // mermaidブロックの前のテキストを追加
+      if (match.index > lastIndex) {
+        parts.push(content.slice(lastIndex, match.index));
+      }
+
+      // Mermaidコンポーネントを使用
+      parts.push(
+        <Mermaid key={Math.random().toString(36).substr(2, 9)} src={match[1]} />
+      );
+
+      lastIndex = match.index + match[0].length;
+    }
+
+    // 残りのテキストを追加
+    if (lastIndex < content.length) {
+      parts.push(content.slice(lastIndex));
+    }
+
+    return <>{parts}</>;
+  };
+
   return (
     <div className="flex flex-col w-full h-full max-w-3xl mx-auto">
       <div className="flex-1 overflow-y-auto py-4 px-4">
@@ -36,7 +92,7 @@ export default function Chat() {
           <div key={m.id} className="mb-4">
             <div className="whitespace-pre-wrap rounded-lg bg-gray-100 p-3">
               {m.role === 'user' ? 'User: ' : 'AI: '}
-              {m.content}
+              {renderMessage(m.content)}
             </div>
             <div className="mt-2">
               {m?.experimental_attachments

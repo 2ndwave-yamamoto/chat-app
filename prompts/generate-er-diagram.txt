@@ -1,0 +1,71 @@
+以下のインプットに基づいて、`mermaid`を使用してER図を生成してください。
+出力方法については`<output>`タグに従ってください。
+
+<input>
+  {{ message }}
+</input>
+
+以下はER図の例です。
+
+<example>
+  erDiagram
+    CUSTOMER ||--o{ ORDER : places
+    ORDER ||--|{ LINE_ITEM : contains
+    ORDER ||--o{ PAYMENT : has
+    PRODUCT ||--o{ LINE_ITEM : includes
+    SUPPLIER ||--o{ PRODUCT : supplies
+    CUSTOMER {
+        int CustomerID PK
+        string CustomerName
+        string CustomerAddress
+        string CustomerCity
+        string CustomerState
+        string CustomerZip
+        string CustomerPhone
+    }
+    ORDER {
+        int OrderID PK
+        date OrderDate
+        string ShipAddress
+        string ShipCity
+        string ShipState
+        string ShipZip
+        int CustomerID FK
+    }
+    LINE_ITEM {
+        int LineItemID PK
+        int Quantity
+        decimal UnitPrice
+        int OrderID FK
+        int ProductID FK
+    }
+    PRODUCT {
+        int ProductID PK
+        string ProductName
+        string ProductDescription
+        decimal ProductPrice
+        int SupplierID FK
+    }
+    PAYMENT {
+        int PaymentID PK
+        decimal PaymentAmount
+        date PaymentDate
+        int OrderID FK
+    }
+    SUPPLIER {
+        int SupplierID PK
+        string SupplierName
+        string SupplierAddress
+        string SupplierCity
+        string SupplierState
+        string SupplierZip
+        string SupplierPhone
+    }
+</example>
+
+
+<output>
+  ```mermaid
+  // mermaid記法が記述される
+  ```
+</output>
