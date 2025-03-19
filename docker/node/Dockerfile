@@ -9,6 +9,7 @@ FROM node:${NODE_VERSION}-bookworm-slim AS base
 
 LABEL version=1.0.0
 
+# ユーザーとグループのIDを設定
 ENV WWWUSER=1000 \
     WWWGROUP=1000
 
@@ -25,10 +26,14 @@ WORKDIR /src
 # -----------------------------------------
 FROM base AS deps
 
+COPY --chown=${WWWUSER}:${WWWGROUP} package*.json ./
+
+RUN npm ci
+
 # -----------------------------------------
 # 開発用イメージ
 # -----------------------------------------
-FROM base AS dev
+FROM deps AS dev
 
 # Gitと開発に必要なツールをインストール
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
@@ -37,6 +42,11 @@ RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-ins
     wget \
     vim \
     && rm -rf /var/lib/apt/lists/*
+
+# ソースコードをコピー
+COPY --chown=${WWWUSER}:${WWWGROUP} . .
+
+USER ${WWWUSER}
 
 # 開発環境用のコマンド
 CMD ["npm", "run", "dev"]
@@ -47,7 +57,7 @@ CMD ["npm", "run", "dev"]
 FROM base AS build
 
 # ソースコードをコピー
-COPY . .
+COPY --chown=${WWWUSER}:${WWWGROUP} . .
 
 # アプリケーションをビルド
 RUN npm run build

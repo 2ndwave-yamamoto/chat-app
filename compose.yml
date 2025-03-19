@@ -6,24 +6,19 @@ services:
       target: dev
       args:
         NODE_VERSION: 23.10.0
-        WWWUSER: ${WWWUSER:-1000}
-        WWWGROUP: ${WWWGROUP:-1000}
+    environment:
+      NODE_ENV: development
+      WWWUSER: "${UID:-1000}"
+      WWWGROUP: "${GID:-1000}"
     ports:
       - 3000:3000
     volumes:
       - .:/src
-      - node_modules:/src/node_modules
     depends_on:
       - db
     networks:
       - chat-dev
-    command: >
-      sh -c "
-        if [ ! -d 'node_modules' ] || [ ! -f 'node_modules/.package-lock.json' ] || [ package-lock.json -nt node_modules/.package-lock.json ]; then
-          npm ci && touch node_modules/.package-lock.json && cp package-lock.json node_modules/.package-lock.json
-        fi
-        npm run dev
-      "
+
   db:
     build:
       context: ./docker/postgres
@@ -45,5 +40,4 @@ networks:
     driver: bridge
 
 volumes:
-  node_modules:
   postgres_data:

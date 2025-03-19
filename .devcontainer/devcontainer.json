@@ -4,7 +4,7 @@
   "service": "web",
   "workspaceFolder": "/src",
   "runServices": ["db"],
-  "remoteUser": "node",
+  "remoteUser": "1000",
   "customizations": {
     "vscode": {
       // vscodeの拡張機能
