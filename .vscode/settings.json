@@ -1,0 +1,4 @@
+{
+  // Disable minimap
+  "editor.minimap.enabled": false,
+}

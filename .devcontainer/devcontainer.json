@@ -1,0 +1,17 @@
+{
+  "name": "chat-app",
+  "dockerComposeFile": "../compose.yml",
+  "service": "web",
+  "workspaceFolder": "/src",
+  "runServices": ["db"],
+  "customizations": {
+    "vscode": {
+      // vscodeの拡張機能
+      "extensions": [
+        "EditorConfig.EditorConfig",
+        "dbaeumer.vscode-eslint"
+      ]
+      // .vscode/settings.jsonに記載
+    }
+  }
+}
