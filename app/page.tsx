@@ -6,7 +6,7 @@ import Sideber from '@/components/sideber';
 import { Textarea } from '@/components/ui/textarea';
 import { Button } from '@/components/ui/button';
 import { Send } from 'lucide-react';
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, KeyboardEvent } from 'react';
 
 export default function Home() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
@@ -28,6 +28,15 @@ export default function Home() {
   const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     handleInputChange(e);
     adjustTextareaHeight();
+  };
+
+  // キー入力を処理する関数
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    // CommandキーまたはCtrlキー + Enterで送信
+    if ((e.metaKey || e.ctrlKey) && e.key === 'Enter') {
+      e.preventDefault(); // デフォルトの改行を防止
+      handleSubmit(e as unknown as React.FormEvent<HTMLFormElement>);
+    }
   };
 
   // コンポーネントマウント時と入力値変更時に高さを調整
@@ -56,6 +65,7 @@ export default function Home() {
                 value={input}
                 placeholder="Say something..."
                 onChange={handleTextareaChange}
+                onKeyDown={handleKeyDown}
                 rows={1}
               />
               <Button type="submit" size="icon" className="shrink-0">
