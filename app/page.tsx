@@ -11,6 +11,8 @@ import { useRef, useEffect, KeyboardEvent } from 'react';
 export default function Home() {
   const { messages, input, handleInputChange, handleSubmit } = useChat();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+  const messagesContainerRef = useRef<HTMLDivElement>(null);
 
   // テキストエリアの高さを自動調整する関数
   const adjustTextareaHeight = () => {
@@ -39,19 +41,33 @@ export default function Home() {
     }
   };
 
+  // 最新のメッセージまでスクロールする関数
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   // コンポーネントマウント時と入力値変更時に高さを調整
   useEffect(() => {
     adjustTextareaHeight();
   }, [input]);
 
+  // メッセージが変更されたら最下部にスクロール
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
   return (
     <div className="flex h-full">
       <Sideber />
       <div className="flex-1 flex flex-col relative">
-        <div className="absolute inset-0 bottom-14 overflow-y-auto p-4 pb-2">
+        <div
+          ref={messagesContainerRef}
+          className="absolute inset-0 bottom-14 overflow-y-auto p-4 pb-2"
+        >
           {messages.map(m => (
             <Message key={m.id} message={m} />
           ))}
+          <div ref={messagesEndRef} />
         </div>
         <div className="absolute bottom-0 inset-x-0 border-t border-gray-200 bg-white">
           <div className="p-2">
