@@ -9,9 +9,10 @@ FROM node:${NODE_VERSION}-bookworm-slim AS base
 
 LABEL version=1.0.0
 
-# ユーザーとグループのIDを設定
+# コンテナ内のENVを設定
 ENV WWWUSER=1000 \
-    WWWGROUP=1000
+    WWWGROUP=1000 \
+    TZ=Asia/Tokyo
 
 # パッケージをインストール
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \

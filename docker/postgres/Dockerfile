@@ -13,7 +13,8 @@ LABEL version=1.0.0
 ENV POSTGRES_USER=postgres \
     POSTGRES_PASSWORD=postgres \
     POSTGRES_DB=postgres \
-    POSTGRES_PORT=5432
+    POSTGRES_PORT=5432 \
+    TZ=Asia/Tokyo
 
 # ロケールの設定
 RUN apt-get update && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
