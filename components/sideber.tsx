@@ -1,6 +1,6 @@
-import { useIsMobile } from "../hooks/use-mobile";
+import { useIsMobile } from "@/hooks/use-mobile";
 import * as React from "react";
-import { PanelLeft, X, Menu } from "lucide-react";
+import { X, Menu } from "lucide-react";
 
 export default function Sideber() {
   const isMobile = useIsMobile();
@@ -34,7 +34,7 @@ export default function Sideber() {
       >
         <X className="h-4 w-4" />
       </button>
-      <h2 className="text-xl font-bold mb-4">会話の履歴</h2>
+      <h2 className="text-xl font-bold mb-4">チャット履歴</h2>
       <ul>
         {Array.from({ length: 5 }).map((_, index) => (
           <li key={index} className="mb-2"><a href="#" className="w-full block hover:bg-gray-200 p-2 rounded">チャット履歴{index + 1}</a></li>
