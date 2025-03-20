@@ -1,10 +1,16 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { now } from "@/lib";
+import { formatDate } from "@/lib";
 import PureMarkdown from '@/components/pure-markdown';
 import { Message as MessageType } from 'ai';
 
 export default function Message({ message }: { message: MessageType }) {
   const m = message;
+
+  // ユーザーメッセージの場合、改行をHTMLの改行タグに変換
+  const formattedContent = m.role === 'user'
+    ? m.content.replace(/\n/g, '<br />')
+    : m.content;
+
   return (
     <div>
       <div className="flex">
@@ -17,10 +23,14 @@ export default function Message({ message }: { message: MessageType }) {
         </div>
         <div className="flex-1">
           <div className="p-2">
-            {now()}
+            {m.createdAt ? formatDate(m.createdAt) : ''}
           </div>
           <div className="p-2">
-            <PureMarkdown>{m.content}</PureMarkdown>
+            {m.role === 'user' ? (
+              <div dangerouslySetInnerHTML={{ __html: formattedContent }} />
+            ) : (
+              <PureMarkdown>{m.content}</PureMarkdown>
+            )}
           </div>
         </div>
       </div>
