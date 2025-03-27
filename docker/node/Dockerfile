@@ -39,9 +39,7 @@ FROM deps AS dev
 # Gitと開発に必要なツールをインストール
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     git \
-    curl \
-    wget \
-    vim \
+    openssl \
     && rm -rf /var/lib/apt/lists/*
 
 # ソースコードをコピー
