@@ -17,7 +17,7 @@ export default function Sideber() {
     return (
       <button
         onClick={() => setIsOpen(true)}
-        className="absolute top-2 left-2 p-2 bg-gray-200 rounded-md z-10 flex items-center justify-center hover:bg-gray-300 transition-colors"
+        className="absolute top-1.5 left-2 p-2 bg-gray-200 rounded-md z-10 flex items-center justify-center hover:bg-gray-300 transition-colors"
         aria-label="サイドバーを開く"
       >
         <Menu className="h-5 w-5" />
@@ -29,7 +29,7 @@ export default function Sideber() {
     <div className="w-64 bg-gray-100 p-4 border-r border-gray-200 relative">
       <button
         onClick={() => setIsOpen(false)}
-        className="absolute top-2 right-2 p-1.5 bg-gray-200 rounded-md hover:bg-gray-300 transition-colors flex items-center justify-center"
+        className="absolute top-4 right-2 p-1.5 bg-gray-200 rounded-md hover:bg-gray-300 transition-colors flex items-center justify-center"
         aria-label="サイドバーを閉じる"
       >
         <X className="h-4 w-4" />
