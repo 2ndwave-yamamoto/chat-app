@@ -48,7 +48,7 @@ COPY --chown=${WWWUSER}:${WWWGROUP} . .
 USER ${WWWUSER}
 
 # 開発環境用のコマンド
-CMD ["npm", "run", "dev"]
+CMD ["tail", "-f", "/dev/null"]
 
 # -----------------------------------------
 # ビルド用のステージ
