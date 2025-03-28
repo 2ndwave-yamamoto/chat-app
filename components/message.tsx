@@ -22,10 +22,10 @@ export default function Message({ message }: { message: MessageType }) {
           </Avatar>
         </div>
         <div className="flex-1">
-          <div className="p-2">
+          <div className="py-1 px-2 text-gray-500">
             {m.createdAt ? formatDate(m.createdAt) : ''}
           </div>
-          <div className="p-2">
+          <div className="py-1 px-2 ">
             {m.role === 'user' ? (
               <div dangerouslySetInnerHTML={{ __html: formattedContent }} />
             ) : (
