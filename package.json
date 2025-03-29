@@ -12,8 +12,7 @@
     "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
-<<<<<<< HEAD
-    "@ai-sdk/google": "^0.0.51",
+    "@ai-sdk/google": "^1.2.3",
     "@ai-sdk/react": "^1.1.24",
     "@radix-ui/react-avatar": "^1.1.3",
     "@radix-ui/react-dialog": "^1.1.6",
@@ -23,24 +22,15 @@
     "ai": "^3.4.33",
     "bcrypt": "^5.1.1",
     "class-variance-authority": "^0.7.1",
-=======
-    "@ai-sdk/google": "^1.2.3",
-    "ai": "^3.4.33",
-    "class-variance-authority": "^0.7.0",
->>>>>>> main
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
     "dotenv": "^16.4.7",
     "dotenv-expand": "^12.0.1",
     "drizzle-orm": "^0.40.1",
     "lucide-react": "^0.452.0",
-<<<<<<< HEAD
-    "next": "14.2.15",
+    "next": "14.2.25",
     "next-auth": "^5.0.0-beta.25",
     "pg": "^8.14.1",
-=======
-    "next": "14.2.25",
->>>>>>> main
     "react": "^18",
     "react-dom": "^18",
     "react-markdown": "^9.0.1",
